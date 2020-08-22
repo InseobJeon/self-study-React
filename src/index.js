@@ -1,39 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Child from './Child'
-// import logo from './logo.svg';
-// import './App.css';
+// import Child from './Child'
 
-class Toggle extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {isToggleOn: true};
+function UserGreeting(props) {
+  return <h1>Welcome back!</h1>;
+}
 
-    // 콜백에서 `this`가 작동하려면 아래와 같이 바인딩 해주어야 합니다.
-    this.handleClick = this.handleClick.bind(this);
+function GuestGreeting(props) {
+  return <h1>Please sign up.</h1>;
+}
+
+function Greeting(props) {
+  const isLoggedIn = props.isLoggedIn;
+  if (isLoggedIn) {
+    return <UserGreeting />;
   }
-
-  handleClick() {
-    this.setState(state => ({
-      isToggleOn: !state.isToggleOn
-    }));
-  }
-
-  render() {
-    return (
-      <>
-        <button onClick={this.handleClick}>
-          {this.state.isToggleOn ? 'ON' : 'OFF'}
-        </button>
-        <Child name="hi" handler={this.handleClick}/>
-      </>
-    );
-  }
+  return <GuestGreeting />;
 }
 
 ReactDOM.render(
-  <Toggle />,
+  // Try changing to isLoggedIn={true}:
+  <Greeting isLoggedIn={true} />,
   document.getElementById('root')
 );
-
-// export default App;
